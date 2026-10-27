@@ -59,6 +59,7 @@ import com.pyamsoft.tetherfi.tile.ProxyTileComponent
 import com.pyamsoft.tetherfi.tile.ProxyTileService
 import com.pyamsoft.tetherfi.tile.ProxyTileServiceComponent
 import com.pyamsoft.tetherfi.tile.TileAppModule
+import com.pyamsoft.tetherfi.widget.ProxyWidgetComponent
 import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
@@ -135,6 +136,8 @@ internal interface TFAppComponent {
   @CheckResult fun plusTile(): ProxyTileComponent.Factory
 
   @CheckResult fun plusTileService(): ProxyTileServiceComponent.Factory
+
+  @CheckResult fun plusWidget(): ProxyWidgetComponent.Factory
 
   @Component.Factory
   interface Factory {

@@ -124,6 +124,25 @@
     </service>
 
     <!--
+              Home screen widget, toggles the hotspot via ProxyTileActivity
+              https://developer.android.com/develop/ui/views/appwidgets
+            -->
+    <receiver
+      android:name=".widget.ProxyWidgetProvider"
+      android:exported="false"
+      android:label="@string/app_name"
+    >
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/widget_proxy_info"
+      />
+    </receiver>
+
+    <!--
               Compose Handles config changes
 
               https://www.reddit.com/r/androiddev/comments/qwu12a/activity_recreation_problem_is_solved_with/

@@ -30,6 +30,8 @@ import com.pyamsoft.pydroid.util.isDebugMode
 import com.pyamsoft.tetherfi.core.GITHUB_URL
 import com.pyamsoft.tetherfi.core.PRIVACY_POLICY_URL
 import com.pyamsoft.tetherfi.core.TERMS_CONDITIONS_URL
+import com.pyamsoft.tetherfi.server.status.RunningStatus
+import com.pyamsoft.tetherfi.widget.ProxyWidgetProvider
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -80,6 +82,21 @@ class TFApp : Application() {
     installObjectGraph(component)
   }
 
+  /** Keep any home screen widgets in sync with the hotspot status while the app is alive */
+  private fun watchWidgetStatus(scope: CoroutineScope) {
+    val handler = ObjectGraph.ApplicationScope.retrieve(this).plusWidget().create().tileHandler()
+    val update = { status: RunningStatus -> ProxyWidgetProvider.updateWidgets(this, status) }
+
+    handler.bind(
+        scope = scope,
+        onNetworkError = { update(it) },
+        onNetworkNotRunning = { update(RunningStatus.NotRunning) },
+        onNetworkStarting = { update(RunningStatus.Starting) },
+        onNetworkRunning = { update(RunningStatus.Running) },
+        onNetworkStopping = { update(RunningStatus.Stopping) },
+    )
+  }
+
   override fun onCreate() {
     super.onCreate()
     val dispatchers = AppDispatchers.create()
@@ -102,6 +119,7 @@ class TFApp : Application() {
         moduleProvider = modules,
         inAppDebugStatus = inAppDebugStatus,
     )
+    watchWidgetStatus(scope = scope)
     addLibraries()
   }
 
