@@ -14,7 +14,10 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+>
   <!-- Foreground Service -->
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
   <uses-permission
@@ -122,6 +125,22 @@
         android:value="true"
       />
     </service>
+
+    <!-- Join another phone's hotspot by scanning its Wi-Fi QR code -->
+    <activity
+      android:name=".join.JoinHotspotActivity"
+      android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+      android:exported="false"
+      android:label="Join a hotspot"
+      android:windowSoftInputMode="adjustPan"
+    />
+
+    <!-- QR scanner follows the device rotation instead of forcing landscape -->
+    <activity
+      android:name="com.journeyapps.barcodescanner.CaptureActivity"
+      android:screenOrientation="fullSensor"
+      tools:replace="screenOrientation"
+    />
 
     <!--
               Home screen widget, toggles the hotspot via ProxyTileActivity

@@ -78,12 +78,16 @@ fun QRCodeEntry(
     modifier: Modifier = Modifier,
     ssid: String,
     password: String,
+    proxyHost: String,
+    proxyPort: Int,
     onDismiss: () -> Unit,
 ) {
   val component = rememberComposableInjector {
     QRCodeInjector(
         ssid = ssid,
         password = password,
+        proxyHost = proxyHost,
+        proxyPort = proxyPort,
     )
   }
   val viewModel = rememberNotNull(component.viewModel)

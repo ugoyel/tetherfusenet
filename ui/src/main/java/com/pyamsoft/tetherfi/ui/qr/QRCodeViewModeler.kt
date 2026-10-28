@@ -35,14 +35,19 @@ internal constructor(
     override val state: MutableQRCodeViewState,
     @Named("ssid") ssid: String,
     @Named("password") password: String,
+    @Named("proxy_host") proxyHost: String,
+    @Named("proxy_port") proxyPort: Int,
     private val dispatchers: AppDispatchers,
 ) : QRCodeViewState by state, AbstractViewModeler<QRCodeViewState>(state) {
 
   private val qrData by lazy {
-    formatQRCode(
-        ssid = ssid,
-        password = password,
-    )
+    WifiQrCode(
+            ssid = ssid,
+            password = password,
+            proxyHost = proxyHost,
+            proxyPort = proxyPort,
+        )
+        .format()
   }
 
   @CheckResult
@@ -53,17 +58,5 @@ internal constructor(
 
   fun load(scope: CoroutineScope) {
     scope.launch(context = dispatchers.default) { state.qrCode.value = renderQRCode() }
-  }
-
-  companion object {
-
-    @JvmStatic
-    @CheckResult
-    private fun formatQRCode(
-        ssid: String,
-        password: String,
-    ): String {
-      return "WIFI:T:WPA;S:${ssid};P:${password};H:;;"
-    }
   }
 }

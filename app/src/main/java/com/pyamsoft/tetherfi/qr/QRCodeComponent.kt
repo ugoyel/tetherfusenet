@@ -33,6 +33,8 @@ internal interface QRCodeComponent {
     fun create(
         @BindsInstance @Named("ssid") ssid: String,
         @BindsInstance @Named("password") password: String,
+        @BindsInstance @Named("proxy_host") proxyHost: String,
+        @BindsInstance @Named("proxy_port") proxyPort: Int,
     ): QRCodeComponent
   }
 }

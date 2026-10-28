@@ -260,8 +260,13 @@ fun MainEntry(
   val isShowingQRCodeDialog by viewModel.isShowingQRCodeDialog.collectAsStateWithLifecycle()
   if (isShowingQRCodeDialog) {
     val group by viewModel.group.collectAsStateWithLifecycle()
+    val connection by viewModel.connection.collectAsStateWithLifecycle()
+    val port by viewModel.port.collectAsStateWithLifecycle()
 
     group.cast<BroadcastNetworkStatus.GroupInfo.Connected>()?.also { grp ->
+      val proxyHost =
+          connection.cast<BroadcastNetworkStatus.ConnectionInfo.Connected>()?.hostName.orEmpty()
+
       QRCodeEntry(
           Modifier.fillUpToPortraitSize()
               .widthIn(
@@ -269,6 +274,8 @@ fun MainEntry(
               ),
           ssid = grp.ssid,
           password = grp.password,
+          proxyHost = proxyHost,
+          proxyPort = port,
           onDismiss = { viewModel.handleCloseDialog(MainViewDialogs.QR_CODE) },
       )
     }

@@ -18,6 +18,7 @@
 
 package com.pyamsoft.tetherfi.main
 
+import android.content.Intent
 import androidx.annotation.CheckResult
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
@@ -30,6 +31,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -46,13 +49,17 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import com.pyamsoft.pydroid.core.LintIgnoreTooManyFunctions
 import com.pyamsoft.pydroid.ui.util.rememberAsStateList
+import com.pyamsoft.tetherfi.R
+import com.pyamsoft.tetherfi.join.JoinHotspotActivity
 import com.pyamsoft.tetherfi.server.broadcast.BroadcastNetworkStatus
 import com.pyamsoft.tetherfi.server.broadcast.BroadcastType
 import com.pyamsoft.tetherfi.server.network.PreferredNetwork
@@ -129,9 +136,22 @@ fun MainScreen(
       modifier = modifier.fillMaxSize(),
       snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
       topBar = {
+        val context = LocalContext.current
         MainTopBar(
             modifier = Modifier.fillMaxWidth(),
             appName = appName,
+            actions = {
+              IconButton(
+                  onClick = {
+                    context.startActivity(Intent(context, JoinHotspotActivity::class.java))
+                  },
+              ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_qr_code_scanner_24),
+                    contentDescription = "Join a hotspot",
+                )
+              }
+            },
         )
       },
   ) { pv ->

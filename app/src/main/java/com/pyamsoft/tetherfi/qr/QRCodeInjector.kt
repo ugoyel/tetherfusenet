@@ -26,6 +26,8 @@ import javax.inject.Inject
 internal class QRCodeInjector(
     private val ssid: String,
     private val password: String,
+    private val proxyHost: String,
+    private val proxyPort: Int,
 ) : ComposableInjector() {
 
   @JvmField @Inject internal var viewModel: QRCodeViewModeler? = null
@@ -38,6 +40,8 @@ internal class QRCodeInjector(
         .create(
             ssid = ssid,
             password = password,
+            proxyHost = proxyHost,
+            proxyPort = proxyPort,
         )
         .inject(this)
   }

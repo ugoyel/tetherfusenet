@@ -26,4 +26,15 @@
       android:targetPackage="com.pyamsoft.tetherfi"
     />
   </shortcut>
+  <shortcut
+    android:enabled="true"
+    android:shortcutId="join_hotspot"
+    android:shortcutShortLabel="@string/join_hotspot_shortcut"
+  >
+    <intent
+      android:action="android.intent.action.VIEW"
+      android:targetClass="com.pyamsoft.tetherfi.join.JoinHotspotActivity"
+      android:targetPackage="com.pyamsoft.tetherfi"
+    />
+  </shortcut>
 </shortcuts>

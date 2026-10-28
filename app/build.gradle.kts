@@ -171,6 +171,9 @@ dependencies {
   // DataStore
   implementation(libs.androidx.dataStore)
 
+  // QR code scanner for joining a hotspot
+  implementation(libs.zxing.embedded)
+
   // PYDroid
   implementation(libs.pydroid.notify)
   implementation(libs.pydroid.ui)

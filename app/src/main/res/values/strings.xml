@@ -16,6 +16,7 @@
 <resources>
   <string name="app_name">TetherFuseNet</string>
   <string name="toggle_hotspot_shortcut">Toggle TetherFuseNet Hotspot</string>
+  <string name="join_hotspot_shortcut">Join a hotspot</string>
   <string name="widget_description">Tap to turn the TetherFuseNet hotspot on or off using your saved settings</string>
   <string name="widget_status_off">Off</string>
   <string name="widget_status_on">On</string>

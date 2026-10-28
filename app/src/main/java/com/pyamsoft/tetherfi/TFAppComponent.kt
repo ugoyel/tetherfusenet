@@ -42,6 +42,7 @@ import com.pyamsoft.tetherfi.core.InAppRatingPreferences
 import com.pyamsoft.tetherfi.core.Timber
 import com.pyamsoft.tetherfi.foreground.ForegroundServiceComponent
 import com.pyamsoft.tetherfi.foreground.ProxyForegroundService
+import com.pyamsoft.tetherfi.join.JoinHotspotComponent
 import com.pyamsoft.tetherfi.main.MainActivity
 import com.pyamsoft.tetherfi.main.MainComponent
 import com.pyamsoft.tetherfi.server.ExpertPreferences
@@ -138,6 +139,8 @@ internal interface TFAppComponent {
   @CheckResult fun plusTileService(): ProxyTileServiceComponent.Factory
 
   @CheckResult fun plusWidget(): ProxyWidgetComponent.Factory
+
+  @CheckResult fun plusJoinHotspot(): JoinHotspotComponent.Factory
 
   @Component.Factory
   interface Factory {

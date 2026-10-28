@@ -16,6 +16,7 @@
 
 package com.pyamsoft.tetherfi.main
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun MainTopBar(
     modifier: Modifier = Modifier,
     appName: String,
+    actions: @Composable RowScope.() -> Unit = {},
 ) {
   Surface(
       modifier = modifier,
@@ -42,6 +44,7 @@ fun MainTopBar(
     MainToolbar(
         modifier = Modifier.statusBarsPadding(),
         appName = appName,
+        actions = actions,
     )
   }
 }
